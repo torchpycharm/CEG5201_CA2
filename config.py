@@ -23,7 +23,7 @@ GROUP_ID = 4
 MEMBERS = [
     # (Member ID, full name, matriculation number)   -> algorithm n
     (0, "ZHOU JUNMIN", "A0257966H"),                  # 1 Strassen
-    (1, "RICARDO JACK LIWONGAN", "A0000000B"),        # 2 Coppersmith-Winograd
+    (1, "RICARDO JACK LIWONGAN", "A0353688L"),        # 2 Coppersmith-Winograd
     (2, "ZHANG FANGYU", "A0353200Y"),                 # 3 Cannon
     (3, "DIVYALAKSHMI BALASUBRAMANIAM", "A0241265L"), # 4 Fox
 ]
@@ -70,6 +70,7 @@ TIME_POOL_CREATION = False
 STRASSEN_LEAF_SIZE = 64         # below this size, switch to the schoolbook product
 CW_LEAF_SIZE = 64               # same, for Coppersmith-Winograd
 CANNON_GRID = 4                 # q: 4 x 4 grid of blocks (fixed by the revised statement)
+CW_MP_DEPTH = 2                 # levels of recursion done by the main process: 7^d pool tasks
 FOX_GRID = 4                    # q: split each matrix into q x q blocks
 
 # ---------------------------------------------------------------------------
