@@ -1,16 +1,15 @@
 cProfile of cannon.multiply_seq on the 1024 x 1024 pair of G0
-run time without profiler: 13.385 s | with profiler: 13.826 s
+run time without profiler: 16.056 s | with profiler: 16.222 s
 
 function                                                 calls   own (s)   own %  total (s)  total %
-<built-in method builtins.sum>                         4194304    13.244   95.8%     13.244    95.8%
-cannon._multiply_add                                        64     0.552    4.0%     13.795    99.8%
-cannon.multiply_seq                                          1     0.016    0.1%     13.826   100.0%
+cannon._multiply_add                                        64    16.206   99.9%     16.206    99.9%
+cannon._join                                                 1     0.006    0.0%      0.006     0.0%
 <method 'tolist' of 'numpy.ndarray' objects>                32     0.005    0.0%      0.005     0.0%
-cannon._zeros                                               16     0.005    0.0%      0.005     0.0%
-cannon._join                                                 1     0.005    0.0%      0.005     0.0%
+cannon.multiply_seq                                          1     0.003    0.0%     16.222   100.0%
+cannon._zeros                                               16     0.002    0.0%      0.002     0.0%
 <built-in method from_iterable>                           1024     0.000    0.0%      0.000     0.0%
-<method 'disable' of '_lsprof.Profiler' objects>             1     0.000    0.0%      0.000     0.0%
+<built-in method builtins.len>                             193     0.000    0.0%      0.000     0.0%
 cannon._block                                               32     0.000    0.0%      0.000     0.0%
+<method 'disable' of '_lsprof.Profiler' objects>             1     0.000    0.0%      0.000     0.0%
 cannon._edges                                                1     0.000    0.0%      0.000     0.0%
 <built-in method numpy.asarray>                              2     0.000    0.0%      0.000     0.0%
-<built-in method builtins.len>                               1     0.000    0.0%      0.000     0.0%

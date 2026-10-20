@@ -1,6 +1,9 @@
 Cannon multiprocessing: bottleneck diagnosis and optimisation
 Machine: MacBook Air, Apple M5 (4 performance + 6 efficiency cores, no fan), 16 GB
-Version 1 = first implementation (q = 4, 16 tasks); version 2 = current (q = 8, blocks >= 32)
+Version 1 = first implementation (q = 4, 16 tasks); version 2 = q = 8, blocks >= 32.
+Both used the sum(map(mul, ...)) kernel. The current code (version 3) follows the
+revised statement: fixed q = 4 and an explicit i-j-k loop, so sections 1-8 describe
+the earlier versions; sections 2 and 4 still explain the 16-task load imbalance.
 =========================================================================================
 
 1. Bottleneck of the sequential version (profile_seq.py; seq_512.txt, seq_1024.txt)

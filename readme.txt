@@ -122,7 +122,7 @@ has to be changed to reproduce the results.
   PROCESS_COUNTS           1 .. min(6, CPU cores), computed automatically
   START_METHOD             "spawn" (the only start method available on Windows)
   TIME_POOL_CREATION       False: worker-pool creation is outside the timed region
-  STRASSEN_LEAF_SIZE, CW_LEAF_SIZE, CANNON_GRID, CANNON_MIN_BLOCK, FOX_GRID
+  STRASSEN_LEAF_SIZE, CW_LEAF_SIZE, CANNON_GRID, FOX_GRID
                            algorithm parameters
   QUICK_*, VERIFY_MAX_SIZE, FIGURE_*                         smoke test, check, figures
 

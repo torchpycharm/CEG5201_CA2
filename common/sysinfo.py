@@ -50,7 +50,6 @@ def protocol():
         "strassen_leaf_size": config.STRASSEN_LEAF_SIZE,
         "cw_leaf_size": config.CW_LEAF_SIZE,
         "cannon_grid": config.CANNON_GRID,
-        "cannon_min_block": config.CANNON_MIN_BLOCK,
         "fox_grid": config.FOX_GRID,
     }
 
