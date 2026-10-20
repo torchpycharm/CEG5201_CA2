@@ -92,7 +92,31 @@ eight sizes); it takes roughly a third of the full run, but still a while for 20
 Final results for the report are run by one person on the team's chosen laptop, for
 all four algorithms, so commit your algorithm file once `verify.py` passes.
 
-## 5. Script options
+## 5. How timing works
+
+All timing is done by `common/bench.py`, identically for the four algorithms; your
+functions contain no timing code.
+
+For every group, in this order:
+
+| Step | Sequential | Multiprocessing | Timed? |
+|---|---|---|---|
+| 1 | load the group from disk, convert to int64 arrays | same | no |
+| 2 | `gc.collect()` | same | no |
+| 3 | - | create a Pool of p workers, wait until all p run (time saved to `C-n_pool_startup.csv`) | no |
+| 4 | **start the clock** | **start the clock** | |
+| 5 | `multiply_seq(A, B)` for each of the 8 pairs | `multiply_mp(A, B, pool, p)` for each of the 8 pairs | **yes** |
+| 6 | read the clock after each pair -> T_0 ... T_7 | same | |
+| 7 | - | close the Pool | no |
+| 8 | save T_0 ... T_7 to `results/<algo>/raw/` | same | no |
+
+Step 5 includes everything inside your two functions: slicing, NumPy -> list
+conversion, the arithmetic, sending data to the workers and back, joining C.
+`analyze.py` then derives t_i = T_i - T_(i-1), the group total T_7 and the cumulative
+totals across groups. Run order: sequential over all groups, then p = 1, 2, ..., 6,
+each over all groups.
+
+## 6. Script options
 
 Every script is run from the project folder; `python <script> -h` prints the same
 options. `--algo` takes one of `strassen`, `coppersmith_winograd`, `cannon`, `fox`
