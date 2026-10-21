@@ -1,0 +1,11 @@
+cProfile of fox.multiply_seq on the 512 x 512 pair of G0
+run time without profiler: 7.071 s | with profiler: 7.086 s
+
+function                                                 calls   own (s)   own %  total (s)  total %
+fox.multiply                                                64     7.030   99.2%      7.030    99.2%
+fox.assemble_blocks                                          1     0.034    0.5%      0.034     0.5%
+fox.multiply_seq                                             1     0.009    0.1%      7.085   100.0%
+fox.split_blocks                                             2     0.009    0.1%      0.009     0.1%
+<method 'tolist' of 'numpy.ndarray' objects>                 2     0.004    0.1%      0.004     0.1%
+<built-in method builtins.len>                              67     0.000    0.0%      0.000     0.0%
+<method 'disable' of '_lsprof.Profiler' objects>             1     0.000    0.0%      0.000     0.0%
