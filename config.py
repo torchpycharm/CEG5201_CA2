@@ -69,9 +69,19 @@ TIME_POOL_CREATION = False
 # ---------------------------------------------------------------------------
 STRASSEN_LEAF_SIZE = 64         # below this size, switch to the schoolbook product
 CW_LEAF_SIZE = 64               # same, for Coppersmith-Winograd
-CANNON_GRID = 4                 # q: 4 x 4 grid of blocks (fixed by the revised statement)
 CW_MP_DEPTH = 2                 # levels of recursion done by the main process: 7^d pool tasks
+CANNON_GRID = 4                 # q: 4 x 4 grid of blocks (fixed by the revised statement)
 FOX_GRID = 4                    # q: split each matrix into q x q blocks
+
+# ---------------------------------------------------------------------------
+# Cool-down between algorithms (run_all.py)
+# ---------------------------------------------------------------------------
+# CPU temperature cannot be read on macOS/Windows without admin tools, so run_all.py
+# times a fixed pure-Python probe instead: the next algorithm starts once the probe is
+# back within COOLDOWN_TOLERANCE of its value measured before the first algorithm.
+COOLDOWN_TOLERANCE = 0.03       # 3 % slower than the starting probe still counts as cool
+COOLDOWN_CHECK_S = 30           # seconds between two probes
+COOLDOWN_MAX_S = 900            # start the next algorithm after 15 min at the latest
 
 # ---------------------------------------------------------------------------
 # Development shortcuts

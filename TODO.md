@@ -170,6 +170,16 @@ an interrupted run keeps the finished groups. Re-running a part overwrites only 
 can diy by yourself to draw figure
 
 
+**`run_all.py`** - the final run on the common laptop: for each algorithm `verify.py`
+then `run_benchmark.py`, waiting between algorithms until the CPU is back to its
+starting speed (a short speed probe, settings `COOLDOWN_*` in `config.py`), then
+`analyze.py` for all of them. Stops if a step fails.
+
+| Option | Default | Meaning |
+|---|---|---|
+| `--quick` | off | 3 groups G0-G2 -> `results_quick/` instead of all groups -> `results/` |
+| `--algos NAME [NAME ...]` | all four | run only these, in this order |
+
 **`make_submission.py`** - one argument: the exported report PDF, e.g.
 `python make_submission.py report.pdf`. Writes `dist/CA2_<GroupID>_<matric numbers>.zip`.
 
@@ -184,7 +194,7 @@ verify.py           correctness check of an algorithm
 profile_seq.py      cProfile of a sequential version
 run_benchmark.py    timing runs -> results/<algorithm>/raw/
 analyze.py          tables (CSV) and figures (PNG) -> results/<algorithm>/
-run_cannon.py       one-click verify + benchmark + analyze for Cannon
+run_all.py          one-click final run: all four algorithms with a CPU cool-down between them
 make_submission.py  builds the Canvas zip
 common/             shared code: data loading, timing harness, platform info, plots
 algorithms/         one file per algorithm - the only place you write code
