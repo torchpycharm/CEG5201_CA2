@@ -1,0 +1,5 @@
+Algorithm,n,Sequential time G0 (s),Sequential time all groups (s),Best p on G0,Best speed-up on G0,Max p,"Speed-up at max p, all groups","Efficiency at max p, all groups"
+Strassen,1,261.979,2639.43,6,3.40097,6,3.42314,0.570524
+Coppersmith-Winograd,2,266.394,2672.29,6,3.55993,6,3.55753,0.592921
+Cannon,3,320.581,3198.23,6,3.30591,6,3.2872,0.547867
+Fox,4,323.445,3249.4,6,3.29559,6,3.26358,0.543929
