@@ -17,9 +17,12 @@ def main():
     parser.add_argument("--algo", choices=list(config.ALGORITHMS.values()),
                         help="one algorithm (default: every algorithm that has results)")
     parser.add_argument("--quick", action="store_true", help="read results_quick/")
+    parser.add_argument("--results-dir",
+                        help="folder to read instead of results/ (e.g. results_mac_M5)")
     args = parser.parse_args()
 
-    results_dir = config.QUICK_RESULTS_DIR if args.quick else config.RESULTS_DIR
+    results_dir = (config.ROOT / args.results_dir if args.results_dir
+                   else config.QUICK_RESULTS_DIR if args.quick else config.RESULTS_DIR)
     names = [args.algo] if args.algo else [
         name for name in config.ALGORITHMS.values()
         if (results_dir / name / "raw" / "seq.json").exists()]

@@ -174,6 +174,9 @@ can diy by yourself to draw figure
 then `run_benchmark.py`, waiting between algorithms until the CPU is back to its
 starting speed (a short speed probe, settings `COOLDOWN_*` in `config.py`), then
 `analyze.py` for all of them. Stops if a step fails.
+python run_all.py                             # 全量：所有组，结果写到 results/
+python run_all.py --quick                     # 3 组（G0–G2），结果写到 results_quick/
+python run_all.py --quick --algos cannon coppersmith_winograd   # 只跑指定的算法
 
 | Option | Default | Meaning |
 |---|---|---|
