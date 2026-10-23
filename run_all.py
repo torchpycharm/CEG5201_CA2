@@ -14,6 +14,7 @@ Usage:
     python run_all.py                       # all groups (NUM_GROUPS)  -> results/
     python run_all.py --quick               # 3 groups G0-G2, all sizes -> results_quick/
     python run_all.py --algos cannon fox    # only some algorithms
+    python run_all.py --results-dir results_mac_M5   # keep this machine's results apart
 """
 import config  # first import: pins BLAS threads before NumPy loads
 
@@ -66,8 +67,12 @@ def main():
     parser.add_argument("--quick", action="store_true", help="3 groups (G0-G2) instead of all")
     parser.add_argument("--algos", nargs="+", choices=names, default=names,
                         help="algorithms to run, in this order (default: all four)")
+    parser.add_argument("--results-dir",
+                        help="folder for the results instead of results/ (e.g. results_mac_M5)")
     args = parser.parse_args()
     quick = ["--quick"] if args.quick else []
+    if args.results_dir:
+        quick += ["--results-dir", args.results_dir]
 
     if platform.system() == "Darwin":
         # Prevent idle sleep for as long as this process is alive.
@@ -84,9 +89,9 @@ def main():
         step(f"{name}: benchmark", "run_benchmark.py", "--algo", name, *quick)
 
     step("tables and figures", "analyze.py", *quick)
-    results = config.QUICK_RESULTS_DIR if args.quick else config.RESULTS_DIR
-    print(f"\nAll done in {(time.perf_counter() - start) / 3600:.1f} h. "
-          f"Results: {results.relative_to(config.ROOT)}")
+    results = (args.results_dir if args.results_dir
+               else (config.QUICK_RESULTS_DIR if args.quick else config.RESULTS_DIR).name)
+    print(f"\nAll done in {(time.perf_counter() - start) / 3600:.1f} h. Results: {results}")
 
 
 if __name__ == "__main__":

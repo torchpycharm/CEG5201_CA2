@@ -26,12 +26,15 @@ def main():
     parser.add_argument("--quick", action="store_true",
                         help="G0..G(QUICK_NUM_GROUPS-1), pairs up to QUICK_MAX_SIZE, "
                              "written to results_quick/")
+    parser.add_argument("--results-dir",
+                        help="folder for the results instead of results/ (e.g. results_mac_M5)")
     args = parser.parse_args()
 
     names = list(config.ALGORITHMS.values()) if args.algo == "all" else [args.algo]
     groups = range(config.QUICK_NUM_GROUPS if args.quick else config.NUM_GROUPS)
     max_size = config.QUICK_MAX_SIZE if args.quick else config.MATRIX_SIZES[-1]
-    results_dir = config.QUICK_RESULTS_DIR if args.quick else config.RESULTS_DIR
+    results_dir = (config.ROOT / args.results_dir if args.results_dir
+                   else config.QUICK_RESULTS_DIR if args.quick else config.RESULTS_DIR)
     process_counts = ([None] if args.mode in ("seq", "all") else []) + \
                      (args.procs if args.mode in ("mp", "all") else [])
 

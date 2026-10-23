@@ -1,0 +1,453 @@
+Speed probe before the first algorithm: 0.294 s
+
+=== strassen: verify
+Checking G0 pairs of size [16, 32, 64, 128, 256]
+  strassen              seq      OK
+  strassen              mp p=1   OK
+  strassen              mp p=2   OK
+  strassen              mp p=3   OK
+  strassen              mp p=4   OK
+  strassen              mp p=5   OK
+  strassen              mp p=6   OK
+All checks passed.
+=== strassen: verify: done in 0.0 min
+
+=== strassen: benchmark
+Machine : Apple M5 | 10 physical / 10 logical cores | 16.0 GB RAM
+Software: macOS-26.5-arm64-arm-64bit-Mach-O | Python 3.14.7 | NumPy 2.5.3
+Protocol: p = [1, 2, 3, 4, 5, 6] | start method 'spawn' | pool creation timed: False | matrix format 'numpy'
+Data    : seed 5201 | 10 groups x 8 pairs | sizes [16, 32, 64, 128, 256, 512, 1024, 2048]
+
+== strassen
+  strassen seq    G0 ...   124.4246 s
+  strassen seq    G1 ...   128.0847 s
+  strassen seq    G2 ...   128.4449 s
+  strassen seq    G3 ...   128.7602 s
+  strassen seq    G4 ...   129.1191 s
+  strassen seq    G5 ...   129.8516 s
+  strassen seq    G6 ...   129.9334 s
+  strassen seq    G7 ...   130.5754 s
+  strassen seq    G8 ...   130.1362 s
+  strassen seq    G9 ...   130.2760 s
+  -> results_mac_M5/strassen/raw/seq.json
+  strassen mp_p1  G0 ...   130.4914 s
+  strassen mp_p1  G1 ...   130.4957 s
+  strassen mp_p1  G2 ...   133.0527 s
+  strassen mp_p1  G3 ...   132.9958 s
+  strassen mp_p1  G4 ...   132.9624 s
+  strassen mp_p1  G5 ...   132.5637 s
+  strassen mp_p1  G6 ...   133.8734 s
+  strassen mp_p1  G7 ...   133.2364 s
+  strassen mp_p1  G8 ...   133.9553 s
+  strassen mp_p1  G9 ...   161.8094 s
+  -> results_mac_M5/strassen/raw/mp_p1.json
+  strassen mp_p2  G0 ...    88.4643 s
+  strassen mp_p2  G1 ...    88.8055 s
+  strassen mp_p2  G2 ...    88.5308 s
+  strassen mp_p2  G3 ...    88.2043 s
+  strassen mp_p2  G4 ...    88.1570 s
+  strassen mp_p2  G5 ...    88.2835 s
+  strassen mp_p2  G6 ...    88.0058 s
+  strassen mp_p2  G7 ...    87.8196 s
+  strassen mp_p2  G8 ...    90.9195 s
+  strassen mp_p2  G9 ...    87.5714 s
+  -> results_mac_M5/strassen/raw/mp_p2.json
+  strassen mp_p3  G0 ...    72.0445 s
+  strassen mp_p3  G1 ...    72.1690 s
+  strassen mp_p3  G2 ...    72.1355 s
+  strassen mp_p3  G3 ...    71.9331 s
+  strassen mp_p3  G4 ...    71.7606 s
+  strassen mp_p3  G5 ...    72.6385 s
+  strassen mp_p3  G6 ...    72.3776 s
+  strassen mp_p3  G7 ...    72.1942 s
+  strassen mp_p3  G8 ...    71.6624 s
+  strassen mp_p3  G9 ...    71.6313 s
+  -> results_mac_M5/strassen/raw/mp_p3.json
+  strassen mp_p4  G0 ...    65.7916 s
+  strassen mp_p4  G1 ...    65.9728 s
+  strassen mp_p4  G2 ...    65.9113 s
+  strassen mp_p4  G3 ...    65.9072 s
+  strassen mp_p4  G4 ...    65.5377 s
+  strassen mp_p4  G5 ...    65.2725 s
+  strassen mp_p4  G6 ...    65.7254 s
+  strassen mp_p4  G7 ...    65.5858 s
+  strassen mp_p4  G8 ...    64.8597 s
+  strassen mp_p4  G9 ...    65.1988 s
+  -> results_mac_M5/strassen/raw/mp_p4.json
+  strassen mp_p5  G0 ...    60.0656 s
+  strassen mp_p5  G1 ...    60.2328 s
+  strassen mp_p5  G2 ...    60.6619 s
+  strassen mp_p5  G3 ...    60.5856 s
+  strassen mp_p5  G4 ...    61.3353 s
+  strassen mp_p5  G5 ...    60.4507 s
+  strassen mp_p5  G6 ...    60.2588 s
+  strassen mp_p5  G7 ...    60.1285 s
+  strassen mp_p5  G8 ...    60.3057 s
+  strassen mp_p5  G9 ...    60.5772 s
+  -> results_mac_M5/strassen/raw/mp_p5.json
+  strassen mp_p6  G0 ...    56.4631 s
+  strassen mp_p6  G1 ...    56.3428 s
+  strassen mp_p6  G2 ...    55.9915 s
+  strassen mp_p6  G3 ...    56.2946 s
+  strassen mp_p6  G4 ...    56.7245 s
+  strassen mp_p6  G5 ...    56.8535 s
+  strassen mp_p6  G6 ...    57.0321 s
+  strassen mp_p6  G7 ...    56.8863 s
+  strassen mp_p6  G8 ...    56.4979 s
+  strassen mp_p6  G9 ...    56.7722 s
+  -> results_mac_M5/strassen/raw/mp_p6.json
+=== strassen: benchmark: done in 101.4 min
+    probe 0.323 s > 0.303 s, waiting 30 s
+=== cool-down: 30 s waited, probe 0.293 s (start 0.294 s)
+
+=== coppersmith_winograd: verify
+Checking G0 pairs of size [16, 32, 64, 128, 256]
+  coppersmith_winograd  seq      OK
+  coppersmith_winograd  mp p=1   OK
+  coppersmith_winograd  mp p=2   OK
+  coppersmith_winograd  mp p=3   OK
+  coppersmith_winograd  mp p=4   OK
+  coppersmith_winograd  mp p=5   OK
+  coppersmith_winograd  mp p=6   OK
+All checks passed.
+=== coppersmith_winograd: verify: done in 0.0 min
+
+=== coppersmith_winograd: benchmark
+Machine : Apple M5 | 10 physical / 10 logical cores | 16.0 GB RAM
+Software: macOS-26.5-arm64-arm-64bit-Mach-O | Python 3.14.7 | NumPy 2.5.3
+Protocol: p = [1, 2, 3, 4, 5, 6] | start method 'spawn' | pool creation timed: False | matrix format 'numpy'
+Data    : seed 5201 | 10 groups x 8 pairs | sizes [16, 32, 64, 128, 256, 512, 1024, 2048]
+
+== coppersmith_winograd
+  coppersmith_winograd seq    G0 ...   133.5073 s
+  coppersmith_winograd seq    G1 ...   135.2088 s
+  coppersmith_winograd seq    G2 ...   135.3902 s
+  coppersmith_winograd seq    G3 ...   136.5281 s
+  coppersmith_winograd seq    G4 ...   136.2837 s
+  coppersmith_winograd seq    G5 ...   136.5548 s
+  coppersmith_winograd seq    G6 ...   136.5627 s
+  coppersmith_winograd seq    G7 ...   136.2584 s
+  coppersmith_winograd seq    G8 ...   136.1126 s
+  coppersmith_winograd seq    G9 ...   136.0543 s
+  -> results_mac_M5/coppersmith_winograd/raw/seq.json
+  coppersmith_winograd mp_p1  G0 ...   136.7062 s
+  coppersmith_winograd mp_p1  G1 ...   136.2589 s
+  coppersmith_winograd mp_p1  G2 ...   135.4794 s
+  coppersmith_winograd mp_p1  G3 ...   135.4244 s
+  coppersmith_winograd mp_p1  G4 ...   135.7099 s
+  coppersmith_winograd mp_p1  G5 ...   137.0583 s
+  coppersmith_winograd mp_p1  G6 ...   136.8541 s
+  coppersmith_winograd mp_p1  G7 ...   137.3940 s
+  coppersmith_winograd mp_p1  G8 ...   135.9509 s
+  coppersmith_winograd mp_p1  G9 ...   136.5067 s
+  -> results_mac_M5/coppersmith_winograd/raw/mp_p1.json
+  coppersmith_winograd mp_p2  G0 ...    87.2468 s
+  coppersmith_winograd mp_p2  G1 ...    87.6059 s
+  coppersmith_winograd mp_p2  G2 ...    87.4582 s
+  coppersmith_winograd mp_p2  G3 ...    86.8279 s
+  coppersmith_winograd mp_p2  G4 ...    86.9028 s
+  coppersmith_winograd mp_p2  G5 ...    86.4828 s
+  coppersmith_winograd mp_p2  G6 ...    86.9548 s
+  coppersmith_winograd mp_p2  G7 ...    87.3154 s
+  coppersmith_winograd mp_p2  G8 ...    87.1968 s
+  coppersmith_winograd mp_p2  G9 ...    87.4849 s
+  -> results_mac_M5/coppersmith_winograd/raw/mp_p2.json
+  coppersmith_winograd mp_p3  G0 ...    71.7701 s
+  coppersmith_winograd mp_p3  G1 ...    71.8041 s
+  coppersmith_winograd mp_p3  G2 ...    72.0969 s
+  coppersmith_winograd mp_p3  G3 ...    71.9852 s
+  coppersmith_winograd mp_p3  G4 ...    71.7312 s
+  coppersmith_winograd mp_p3  G5 ...    71.3476 s
+  coppersmith_winograd mp_p3  G6 ...    72.5853 s
+  coppersmith_winograd mp_p3  G7 ...    71.9431 s
+  coppersmith_winograd mp_p3  G8 ...    71.9363 s
+  coppersmith_winograd mp_p3  G9 ...    71.6478 s
+  -> results_mac_M5/coppersmith_winograd/raw/mp_p3.json
+  coppersmith_winograd mp_p4  G0 ...    63.7843 s
+  coppersmith_winograd mp_p4  G1 ...    64.6519 s
+  coppersmith_winograd mp_p4  G2 ...    65.2118 s
+  coppersmith_winograd mp_p4  G3 ...    65.0999 s
+  coppersmith_winograd mp_p4  G4 ...    64.1822 s
+  coppersmith_winograd mp_p4  G5 ...    64.8619 s
+  coppersmith_winograd mp_p4  G6 ...    64.4921 s
+  coppersmith_winograd mp_p4  G7 ...    63.7911 s
+  coppersmith_winograd mp_p4  G8 ...    63.8469 s
+  coppersmith_winograd mp_p4  G9 ...    63.6765 s
+  -> results_mac_M5/coppersmith_winograd/raw/mp_p4.json
+  coppersmith_winograd mp_p5  G0 ...    59.4279 s
+  coppersmith_winograd mp_p5  G1 ...    60.4660 s
+  coppersmith_winograd mp_p5  G2 ...    59.4922 s
+  coppersmith_winograd mp_p5  G3 ...    60.1647 s
+  coppersmith_winograd mp_p5  G4 ...    60.7145 s
+  coppersmith_winograd mp_p5  G5 ...    60.4474 s
+  coppersmith_winograd mp_p5  G6 ...    60.6607 s
+  coppersmith_winograd mp_p5  G7 ...    60.0298 s
+  coppersmith_winograd mp_p5  G8 ...    60.3993 s
+  coppersmith_winograd mp_p5  G9 ...    61.2259 s
+  -> results_mac_M5/coppersmith_winograd/raw/mp_p5.json
+  coppersmith_winograd mp_p6  G0 ...    55.8761 s
+  coppersmith_winograd mp_p6  G1 ...    55.5940 s
+  coppersmith_winograd mp_p6  G2 ...    55.6704 s
+  coppersmith_winograd mp_p6  G3 ...    55.8275 s
+  coppersmith_winograd mp_p6  G4 ...    55.6771 s
+  coppersmith_winograd mp_p6  G5 ...    55.2219 s
+  coppersmith_winograd mp_p6  G6 ...    55.5931 s
+  coppersmith_winograd mp_p6  G7 ...    55.5162 s
+  coppersmith_winograd mp_p6  G8 ...    55.1479 s
+  coppersmith_winograd mp_p6  G9 ...    55.7997 s
+  -> results_mac_M5/coppersmith_winograd/raw/mp_p6.json
+=== coppersmith_winograd: benchmark: done in 102.1 min
+    probe 0.308 s > 0.303 s, waiting 30 s
+=== cool-down: 30 s waited, probe 0.292 s (start 0.294 s)
+
+=== cannon: verify
+Checking G0 pairs of size [16, 32, 64, 128, 256]
+  cannon                seq      OK
+  cannon                mp p=1   OK
+  cannon                mp p=2   OK
+  cannon                mp p=3   OK
+  cannon                mp p=4   OK
+  cannon                mp p=5   OK
+  cannon                mp p=6   OK
+All checks passed.
+=== cannon: verify: done in 0.0 min
+
+=== cannon: benchmark
+Machine : Apple M5 | 10 physical / 10 logical cores | 16.0 GB RAM
+Software: macOS-26.5-arm64-arm-64bit-Mach-O | Python 3.14.7 | NumPy 2.5.3
+Protocol: p = [1, 2, 3, 4, 5, 6] | start method 'spawn' | pool creation timed: False | matrix format 'numpy'
+Data    : seed 5201 | 10 groups x 8 pairs | sizes [16, 32, 64, 128, 256, 512, 1024, 2048]
+
+== cannon
+  cannon seq    G0 ...   172.5681 s
+  cannon seq    G1 ...   173.4495 s
+  cannon seq    G2 ...   173.3440 s
+  cannon seq    G3 ...   174.6419 s
+  cannon seq    G4 ...   174.7921 s
+  cannon seq    G5 ...   174.7501 s
+  cannon seq    G6 ...   174.3398 s
+  cannon seq    G7 ...   174.4217 s
+  cannon seq    G8 ...   174.3144 s
+  cannon seq    G9 ...   174.4832 s
+  -> results_mac_M5/cannon/raw/seq.json
+  cannon mp_p1  G0 ...   174.9214 s
+  cannon mp_p1  G1 ...   174.8861 s
+  cannon mp_p1  G2 ...   173.7209 s
+  cannon mp_p1  G3 ...   174.0342 s
+  cannon mp_p1  G4 ...   173.9018 s
+  cannon mp_p1  G5 ...   204.6386 s
+  cannon mp_p1  G6 ...   173.4134 s
+  cannon mp_p1  G7 ...   174.8352 s
+  cannon mp_p1  G8 ...   174.6253 s
+  cannon mp_p1  G9 ...   175.2185 s
+  -> results_mac_M5/cannon/raw/mp_p1.json
+  cannon mp_p2  G0 ...   112.2161 s
+  cannon mp_p2  G1 ...   112.7789 s
+  cannon mp_p2  G2 ...   115.9336 s
+  cannon mp_p2  G3 ...   111.8292 s
+  cannon mp_p2  G4 ...   111.3287 s
+  cannon mp_p2  G5 ...   111.1751 s
+  cannon mp_p2  G6 ...   111.9202 s
+  cannon mp_p2  G7 ...   111.0781 s
+  cannon mp_p2  G8 ...   111.2512 s
+  cannon mp_p2  G9 ...   111.5111 s
+  -> results_mac_M5/cannon/raw/mp_p2.json
+  cannon mp_p3  G0 ...    98.0554 s
+  cannon mp_p3  G1 ...    96.1174 s
+  cannon mp_p3  G2 ...    95.8055 s
+  cannon mp_p3  G3 ...    95.5012 s
+  cannon mp_p3  G4 ...    95.3436 s
+  cannon mp_p3  G5 ...    95.6260 s
+  cannon mp_p3  G6 ...    95.8971 s
+  cannon mp_p3  G7 ...    96.0610 s
+  cannon mp_p3  G8 ...    96.3510 s
+  cannon mp_p3  G9 ...    96.7127 s
+  -> results_mac_M5/cannon/raw/mp_p3.json
+  cannon mp_p4  G0 ...    81.8160 s
+  cannon mp_p4  G1 ...    82.6535 s
+  cannon mp_p4  G2 ...    84.0423 s
+  cannon mp_p4  G3 ...    82.6049 s
+  cannon mp_p4  G4 ...    81.8106 s
+  cannon mp_p4  G5 ...    81.8588 s
+  cannon mp_p4  G6 ...    82.8369 s
+  cannon mp_p4  G7 ...    81.4651 s
+  cannon mp_p4  G8 ...    81.4850 s
+  cannon mp_p4  G9 ...    81.6066 s
+  -> results_mac_M5/cannon/raw/mp_p4.json
+  cannon mp_p5  G0 ...    81.2559 s
+  cannon mp_p5  G1 ...    82.5037 s
+  cannon mp_p5  G2 ...    82.8523 s
+  cannon mp_p5  G3 ...    82.6563 s
+  cannon mp_p5  G4 ...    82.6976 s
+  cannon mp_p5  G5 ...    82.0306 s
+  cannon mp_p5  G6 ...    82.6612 s
+  cannon mp_p5  G7 ...    83.0973 s
+  cannon mp_p5  G8 ...    89.6497 s
+  cannon mp_p5  G9 ...    88.9792 s
+  -> results_mac_M5/cannon/raw/mp_p5.json
+  cannon mp_p6  G0 ...    74.0450 s
+  cannon mp_p6  G1 ...    72.7320 s
+  cannon mp_p6  G2 ...    73.2485 s
+  cannon mp_p6  G3 ...    73.0957 s
+  cannon mp_p6  G4 ...    73.4671 s
+  cannon mp_p6  G5 ...    73.3889 s
+  cannon mp_p6  G6 ...    73.0895 s
+  cannon mp_p6  G7 ...    73.4137 s
+  cannon mp_p6  G8 ...    73.2523 s
+  cannon mp_p6  G9 ...    73.7847 s
+  -> results_mac_M5/cannon/raw/mp_p6.json
+=== cannon: benchmark: done in 133.3 min
+    probe 0.318 s > 0.303 s, waiting 30 s
+=== cool-down: 30 s waited, probe 0.294 s (start 0.294 s)
+
+=== fox: verify
+Checking G0 pairs of size [16, 32, 64, 128, 256]
+  fox                   seq      OK
+  fox                   mp p=1   OK
+  fox                   mp p=2   OK
+  fox                   mp p=3   OK
+  fox                   mp p=4   OK
+  fox                   mp p=5   OK
+  fox                   mp p=6   OK
+All checks passed.
+=== fox: verify: done in 0.0 min
+
+=== fox: benchmark
+Machine : Apple M5 | 10 physical / 10 logical cores | 16.0 GB RAM
+Software: macOS-26.5-arm64-arm-64bit-Mach-O | Python 3.14.7 | NumPy 2.5.3
+Protocol: p = [1, 2, 3, 4, 5, 6] | start method 'spawn' | pool creation timed: False | matrix format 'numpy'
+Data    : seed 5201 | 10 groups x 8 pairs | sizes [16, 32, 64, 128, 256, 512, 1024, 2048]
+
+== fox
+  fox seq    G0 ...   172.7873 s
+  fox seq    G1 ...   173.8586 s
+  fox seq    G2 ...   174.0429 s
+  fox seq    G3 ...   173.8733 s
+  fox seq    G4 ...   174.2209 s
+  fox seq    G5 ...   174.9400 s
+  fox seq    G6 ...   176.0076 s
+  fox seq    G7 ...   175.5324 s
+  fox seq    G8 ...   175.3398 s
+  fox seq    G9 ...   175.3656 s
+  -> results_mac_M5/fox/raw/seq.json
+  fox mp_p1  G0 ...   179.3489 s
+  fox mp_p1  G1 ...   175.6855 s
+  fox mp_p1  G2 ...   190.7706 s
+  fox mp_p1  G3 ...   188.5385 s
+  fox mp_p1  G4 ...   175.2323 s
+  fox mp_p1  G5 ...   174.9352 s
+  fox mp_p1  G6 ...   175.4021 s
+  fox mp_p1  G7 ...   175.9166 s
+  fox mp_p1  G8 ...   175.7292 s
+  fox mp_p1  G9 ...   175.2105 s
+  -> results_mac_M5/fox/raw/mp_p1.json
+  fox mp_p2  G0 ...   112.6125 s
+  fox mp_p2  G1 ...   112.2074 s
+  fox mp_p2  G2 ...   111.8776 s
+  fox mp_p2  G3 ...   112.3895 s
+  fox mp_p2  G4 ...   112.3938 s
+  fox mp_p2  G5 ...   111.9838 s
+  fox mp_p2  G6 ...   112.1320 s
+  fox mp_p2  G7 ...   112.1706 s
+  fox mp_p2  G8 ...   111.8163 s
+  fox mp_p2  G9 ...   113.1661 s
+  -> results_mac_M5/fox/raw/mp_p2.json
+  fox mp_p3  G0 ...    97.4715 s
+  fox mp_p3  G1 ...    97.2117 s
+  fox mp_p3  G2 ...    97.5810 s
+  fox mp_p3  G3 ...    98.7977 s
+  fox mp_p3  G4 ...    97.4452 s
+  fox mp_p3  G5 ...    97.3410 s
+  fox mp_p3  G6 ...    97.3280 s
+  fox mp_p3  G7 ...    97.3919 s
+  fox mp_p3  G8 ...    97.3099 s
+  fox mp_p3  G9 ...    97.1663 s
+  -> results_mac_M5/fox/raw/mp_p3.json
+  fox mp_p4  G0 ...    84.8600 s
+  fox mp_p4  G1 ...    83.1412 s
+  fox mp_p4  G2 ...    83.5672 s
+  fox mp_p4  G3 ...    84.6384 s
+  fox mp_p4  G4 ...    82.3038 s
+  fox mp_p4  G5 ...    84.9053 s
+  fox mp_p4  G6 ...    83.4810 s
+  fox mp_p4  G7 ...    83.2983 s
+  fox mp_p4  G8 ...    83.3114 s
+  fox mp_p4  G9 ...    84.1794 s
+  -> results_mac_M5/fox/raw/mp_p4.json
+  fox mp_p5  G0 ...    84.1682 s
+  fox mp_p5  G1 ...    84.1725 s
+  fox mp_p5  G2 ...    84.0954 s
+  fox mp_p5  G3 ...    84.3744 s
+  fox mp_p5  G4 ...    84.4806 s
+  fox mp_p5  G5 ...    84.1203 s
+  fox mp_p5  G6 ...    83.6743 s
+  fox mp_p5  G7 ...    84.3238 s
+  fox mp_p5  G8 ...    83.5363 s
+  fox mp_p5  G9 ...    79.6379 s
+  -> results_mac_M5/fox/raw/mp_p5.json
+  fox mp_p6  G0 ...    68.4508 s
+  fox mp_p6  G1 ...    66.6407 s
+  fox mp_p6  G2 ...    67.2155 s
+  fox mp_p6  G3 ...    68.6350 s
+  fox mp_p6  G4 ...    68.9182 s
+  fox mp_p6  G5 ...    69.1912 s
+  fox mp_p6  G6 ...    69.7250 s
+  fox mp_p6  G7 ...    70.1654 s
+  fox mp_p6  G8 ...    70.6405 s
+  fox mp_p6  G9 ...    73.8294 s
+  -> results_mac_M5/fox/raw/mp_p6.json
+=== fox: benchmark: done in 133.4 min
+
+=== tables and figures
+== strassen
+  results_mac_M5/strassen/tables/B-1.1.csv
+  results_mac_M5/strassen/tables/B-1.2.csv
+  results_mac_M5/strassen/tables/C-1.1.csv
+  results_mac_M5/strassen/tables/C-1.2.csv
+  results_mac_M5/strassen/tables/C-1_pool_startup.csv
+  results_mac_M5/strassen/tables/D-1.1.csv
+  results_mac_M5/strassen/tables/D-1.2.csv
+  results_mac_M5/strassen/figures/D-1.1_speedup_vs_p.png
+  results_mac_M5/strassen/figures/D-1.1_speedup_vs_k.png
+  results_mac_M5/strassen/figures/D-1.2_speedup_vs_p.png
+== coppersmith_winograd
+  results_mac_M5/coppersmith_winograd/tables/B-2.1.csv
+  results_mac_M5/coppersmith_winograd/tables/B-2.2.csv
+  results_mac_M5/coppersmith_winograd/tables/C-2.1.csv
+  results_mac_M5/coppersmith_winograd/tables/C-2.2.csv
+  results_mac_M5/coppersmith_winograd/tables/C-2_pool_startup.csv
+  results_mac_M5/coppersmith_winograd/tables/D-2.1.csv
+  results_mac_M5/coppersmith_winograd/tables/D-2.2.csv
+  results_mac_M5/coppersmith_winograd/figures/D-2.1_speedup_vs_p.png
+  results_mac_M5/coppersmith_winograd/figures/D-2.1_speedup_vs_k.png
+  results_mac_M5/coppersmith_winograd/figures/D-2.2_speedup_vs_p.png
+== cannon
+  results_mac_M5/cannon/tables/B-3.1.csv
+  results_mac_M5/cannon/tables/B-3.2.csv
+  results_mac_M5/cannon/tables/C-3.1.csv
+  results_mac_M5/cannon/tables/C-3.2.csv
+  results_mac_M5/cannon/tables/C-3_pool_startup.csv
+  results_mac_M5/cannon/tables/D-3.1.csv
+  results_mac_M5/cannon/tables/D-3.2.csv
+  results_mac_M5/cannon/figures/D-3.1_speedup_vs_p.png
+  results_mac_M5/cannon/figures/D-3.1_speedup_vs_k.png
+  results_mac_M5/cannon/figures/D-3.2_speedup_vs_p.png
+== fox
+  results_mac_M5/fox/tables/B-4.1.csv
+  results_mac_M5/fox/tables/B-4.2.csv
+  results_mac_M5/fox/tables/C-4.1.csv
+  results_mac_M5/fox/tables/C-4.2.csv
+  results_mac_M5/fox/tables/C-4_pool_startup.csv
+  results_mac_M5/fox/tables/D-4.1.csv
+  results_mac_M5/fox/tables/D-4.2.csv
+  results_mac_M5/fox/figures/D-4.1_speedup_vs_p.png
+  results_mac_M5/fox/figures/D-4.1_speedup_vs_k.png
+  results_mac_M5/fox/figures/D-4.2_speedup_vs_p.png
+== comparison [E]
+  results_mac_M5/comparison/E_seq_time_vs_size.png
+  results_mac_M5/comparison/E_speedup_vs_p.png
+  results_mac_M5/comparison/E_speedup_vs_k.png
+  results_mac_M5/comparison/E_summary.csv
+=== tables and figures: done in 0.0 min
+
+All done in 7.9 h. Results: results_mac_M5
