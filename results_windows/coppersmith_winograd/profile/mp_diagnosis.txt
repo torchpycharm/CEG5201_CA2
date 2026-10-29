@@ -1,0 +1,76 @@
+Coppersmith-Winograd (Strassen-Winograd S/T/M/U) multiprocessing: bottleneck diagnosis
+Machine: Windows laptop, AMD Ryzen 7 PRO 7840U (8 cores / 16 threads), power limited, Python 3.14.3
+Version 1 = 49 equal tasks, one starmap, combine at the end
+Version 2 = 49 mod p tail leaves split once more, combine as soon as 7 products are back
+Timings on this laptop vary by 10-15 % from run to run, so versions are compared in alternating runs.
+=========================================================================================
+
+1. Bottleneck of the sequential version (profile_seq.py; seq_512.txt, seq_1024.txt)
+   M = 512 : _base_multiply 89.6 % own time, _sub 3.3 %, _add 2.6 %
+   M = 1024: _base_multiply 88.0 % own time, _sub 3.9 %, _add 3.0 %, _operands 4.4 % total,
+             _combine ~3 % total
+   -> the i-j-k leaf kernel (64 x 64 blocks) is ~90 % of the work. The S/T/U additions are
+      the O(M^2) remainder (~7 %), larger than Cannon's because every level adds 15 matrices.
+
+2. Where the time of the current multiprocessing version went (one multiplication, p = 6,
+   per-task timestamps)
+   M     total(s)  tasks  main serial before 1st task  pool phase  worker idle  combine (hidden)  after last task  pickled out / back
+   512    2.00      55     0.123 s (6.2 %)              1.81 s       3.0 %      0.17 s (0.11 s)   0.06 s (2.9 %)     5.1 /  4.0 MB
+   1024  12.34      55     0.457 s (3.7 %)             11.68 s       2.3 %      0.54 s (0.35 s)   0.19 s (1.5 %)    20.2 / 16.1 MB
+   2048  85.22      55     1.827 s (2.1 %)             82.51 s       1.9 %      2.19 s (1.36 s)   0.85 s (1.0 %)    80.4 / 64.3 MB
+   55 tasks = 48 depth-2 products + 1 tail leaf split into 7. Main serial = NumPy -> list and
+   two levels of S/T additions. Worker idle = share of p x pool phase with no task running.
+   Hidden = combine time that runs while workers are still busy.
+   -> load imbalance (idle ~2 %) and the serial part (3-4 % at M >= 1024) are small.
+      The serial split cannot overlap with work because the operands of the 49 tasks
+      only exist after it.
+
+3. Hardware effect: speed of the leaf kernel (128 x 128 blocks) when k cores run it together
+   busy cores:          1      2      4      6      1 (after)
+   ns per multiply-add: 40.4   48.5   60.3   74.5   40.8
+   -> each core is 1.84x slower when 6 cores are busy. Unlike Cannon's test (other cores only
+      spin), here every core runs the kernel, so this includes the all-core clock limit of the
+      laptop and shared cache/memory traffic. This alone caps the speed-up at 6 / 1.84 = 3.3,
+      which matches the measured ~3.2 at M = 1024 (seq ~40 s, p = 6 12.3 s). It is the main
+      bottleneck, not the code.
+
+4. Task granularity: parallel depth d gives 7^d tasks (M = 1024, p = 6, seconds, 2 alternating rounds)
+                          d = 1 (7)      d = 2 (49)     d = 3 (343 tasks)
+   version 1 (equal)    17.15 / 15.76  14.27 / 12.58  13.67 / 13.22
+   version 2 (tail)     13.14 / 12.20  13.06 / 11.92  14.39 / 12.06
+   -> with equal tasks, 7 tasks on 6 workers is badly balanced. Tail balancing fixes most of
+      that, and then d = 1..3 are within noise. Every extra level multiplies the serial
+      additions and the pickled data by 7/4, so d = 2 (CW_MP_DEPTH) is kept.
+
+5. Small matrices: speed-up over sequential (p = 6, median of 15 runs; 3 runs at 512)
+   M      seq (ms)   1 task   d = 1   d = 2
+   16        0.20     0.37     0.28     -
+   32        1.65     0.68     1.19    0.33
+   64       11.55     0.89     1.76    1.16
+   128      91.11     0.94     2.17    2.10
+   256     702.65     0.96     2.26    2.54
+   512    5529.17     1.00     2.54    2.94
+   -> splitting pays off from M = 32-64; d = 2 wins from M = 256. The current rule (stop
+      splitting at CW_LEAF_SIZE = 64) runs M <= 64 as one task. Those sizes are under
+      15 ms, so this hardly affects the cumulative times.
+
+6. Version 1 vs version 2, alternating runs (seconds, positive gain = version 2 faster)
+            p = 2         p = 3         p = 4         p = 5         p = 6
+   M=1024   21.74/22.68   16.87/16.76   14.71/14.48   13.11/12.60   12.05/13.36   version 1
+            22.06/22.16   16.13/15.97   14.20/14.17   12.73/12.70   13.67/12.49   version 2
+            +0.5 %        +4.5 %        +2.8 %        +1.1 %        -3.0 %
+   M=2048, p = 6: version 1 83.0 / 84.2 s, version 2 78.5 / 72.9 s (about +9 %)
+   -> the gain is clearest at M = 2048 where the tail task is longest. At M = 1024 the
+      differences are mostly within the run-to-run noise of this laptop.
+
+7. Conclusions
+   - Run time is ~90 % leaf kernel; the parallel design keeps workers busy (idle ~2 %).
+   - Remaining losses: per-core slowdown under load (1.84x, hardware), serial S/T split
+     and final combine in the main process (~3-4 %), pickling ~36 MB per M = 1024 call.
+   - Compared with Cannon (speed-up ~3.4 at M = 1024): CW reaches ~3.2 on the same machine.
+     The gap comes mainly from the per-core slowdown under load (section 3). The serial
+     additions add a little: at M = 1024 only the level-1 split and the combine after the
+     last task (0.46 + 0.19 s, ~5 %) run alone in the main process. Moving the level-2
+     split into the workers and overlapping the combine gave no measurable gain, because
+     sending the quadrants costs about as much as adding them. The data format is not the
+     cause either: pickling a 512 x 512 block as lists or via NumPy both cost ~13.6 ms.

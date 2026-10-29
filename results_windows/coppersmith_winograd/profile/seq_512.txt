@@ -1,0 +1,16 @@
+cProfile of coppersmith_winograd.multiply_seq on the 512 x 512 pair of G0
+run time without profiler: 5.930 s | with profiler: 6.441 s
+
+function                                                 calls   own (s)   own %  total (s)  total %
+coppersmith_winograd._base_multiply                        343     5.769   89.6%      5.905    91.7%
+coppersmith_winograd._sub                                  456     0.210    3.3%      0.210     3.3%
+coppersmith_winograd._add                                  399     0.166    2.6%      0.166     2.6%
+<method 'append' of 'list' objects>                    1426880     0.136    2.1%      0.136     2.1%
+coppersmith_winograd._multiply                             400     0.116    1.8%      6.436    99.9%
+coppersmith_winograd._split                                114     0.028    0.4%      0.028     0.4%
+coppersmith_winograd._join                                  57     0.009    0.1%      0.009     0.1%
+<method 'tolist' of 'numpy.ndarray' objects>                 2     0.004    0.1%      0.004     0.1%
+coppersmith_winograd.multiply_seq                            1     0.001    0.0%      6.441   100.0%
+<built-in method builtins.len>                             514     0.001    0.0%      0.001     0.0%
+coppersmith_winograd._operands                              57     0.001    0.0%      0.239     3.7%
+coppersmith_winograd._combine                               57     0.000    0.0%      0.176     2.7%
