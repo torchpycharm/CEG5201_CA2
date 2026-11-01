@@ -1,55 +1,9 @@
-"""[B-3] / [C-3]  Cannon's algorithm  (n = 3 in Table II).
+"""[B-3] / [C-3]  Cannon's algorithm
 
 Owner: ZHANG FANGYU (Member ID 2)
 
 Reference: L. E. Cannon, "A Cellular Computer to Implement the Kalman Filter
 Algorithm," PhD thesis, Montana State University, 1969.
-
-How the algorithm works
------------------------
-A, B and C are cut into a 4 x 4 grid of blocks (q = config.CANNON_GRID = 4, as the
-revised statement requires: 16 blocks per matrix). Every grid position (i, j) holds
-one block of A and one block of B at a time:
-
-1. Initial alignment (skew): block row i of A is rotated left by i positions and block
-   column j of B is rotated up by j positions. Position (i, j) now holds A[i][k] and
-   B[k][j] with k = (i + j) mod q, a pair that can be multiplied.
-2. q stages: every position multiplies the pair it holds and adds the product to its
-   block C[i][j]; then all A blocks move one position left and all B blocks one position
-   up (circularly). At stage s position (i, j) holds the pair with k = (i + j + s) mod q,
-   so over the q stages it meets every k exactly once: C[i][j] = sum_k A[i][k] B[k][j].
-
-At every stage each block of A and of B sits at exactly one position, so no block is
-ever needed by two positions at once (Fox's algorithm broadcasts blocks instead).
-
-Implementation notes
---------------------
-* All arithmetic is our own pure-Python loops: every block product is an i-j-k triple
-  loop over lists of Python ints (_multiply_add). NumPy is only used to store the input
-  and cut it into blocks; no NumPy arithmetic, no library product or sum.
-* Block boundaries are t * M // q; every matrix size (16 ... 2048) is divisible by 4.
-* Sequential version: the skew and the shifts are carried out literally, by rotating
-  the grids of block references (no data is copied).
-
-Bottleneck of the sequential version (python profile_seq.py --algo cannon)
------------------------------------------------------------------------------
-The block multiply-adds of the q stages (_multiply_add) take 99.7 % of the run time at
-M = 512 and 99.9 % at M = 1024; skew, shifts, NumPy -> list conversion and joining are
-O(M^2) work and together below 0.3 %. Within one stage the 16 block products are independent, and the q products
-of one grid position only add into its own C block, so this is the work to spread
-over processes.
-
-Multiprocessing version
------------------------
-* Every grid position (i, j) becomes one pool task, a "virtual processor". The main
-  process sends it, in stage order, the q block pairs that the skew and the shifts
-  would bring to it; the task runs its q multiply-add stages and returns C[i][j]. The
-  16 tasks are independent, so no barrier is needed between stages, and the pool hands
-  them out one at a time (chunksize=1).
-* Measured overheads are small: building tasks, pickling the blocks and joining C cost
-  below 1 % of the run time. The remaining software loss is load imbalance: 16 equal
-  tasks need 4 rounds on 4 or 5 workers and 3 rounds on 6, so with p = 5 the last round
-  holds a single task while four workers wait (see results/cannon/profile/mp_diagnosis.txt).
 """
 from itertools import chain
 

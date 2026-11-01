@@ -5,10 +5,8 @@ Usage:
     python analyze.py --algo strassen  # one algorithm only
     python analyze.py --quick          # use the results of run_benchmark.py --quick
 """
-import config  # first import: pins BLAS threads before NumPy loads
-
+import config
 import argparse
-
 from common import analysis
 
 

@@ -1,7 +1,7 @@
 """Package the Canvas upload (Section IV of the CA2 statement).
 
 Creates dist/CA2_<GroupID>_<matric numbers>.zip containing the report renamed to
-CA2_Report_<GroupID>_<matric numbers>.pdf, every .py file, README.md and requirements.txt.
+CA2_Report_<GroupID>_<matric numbers>.pdf, every .py file, readme.txt and requirements.txt.
 
 Usage:
     python make_submission.py path/to/exported_report.pdf
@@ -13,7 +13,7 @@ from pathlib import Path
 import config
 
 SOURCE_DIRS = [".", "common", "algorithms"]     # every *.py file in these folders
-EXTRA_FILES = ["README.md", "requirements.txt"]
+EXTRA_FILES = ["readme.txt", "requirements.txt"]
 
 
 def main():

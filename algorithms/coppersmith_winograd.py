@@ -4,58 +4,6 @@ Owner: RICARDO JACK LIWONGAN (Member ID 1)
 
 Reference: D. Coppersmith and S. Winograd, "Matrix multiplication via arithmetic
 progressions," J. Symb. Comput., vol. 9, no. 3, pp. 251-280, 1990.
-
-Appendix A actually describes the Strassen-Winograd variant (7 products, 15 block
-additions), not the asymptotic algorithm of the 1990 paper.
-
-How the algorithm works
------------------------
-X and Y are cut into 2 x 2 blocks of half size. Eight block additions build
-    S1 = X21 + X22   S2 = S1 - X11  S3 = X11 - X21  S4 = X12 - S2
-    T1 = Y12 - Y11   T2 = Y22 - T1  T3 = Y22 - Y12  T4 = T2 - Y21
-then seven half size products, each computed by the same method recursively,
-    M1 = X11 Y11  M2 = X12 Y21   M3 = S4 Y22   M4 = X22 T4
-    M5 = S1 T1    M6 = S2 T2     M7 = S3 T3
-and seven more additions give Z (U2 and U3 are reused, hence 15 additions in total):
-    U2 = M1 + M6    U3  = U2 + M7   U4  = U2 + M5
-    Z11 = M1 + M2   Z12 = U4 + M3   Z21 = U3 - M4   Z22 = U3 + M5      
-Blocks of size <= CW_LEAF_SIZE are multiplied with the own i-j-k triple loop.
-
-Implementation notes
---------------------
-* All arithmetic is pure Python on lists of Python ints. NumPy is only used to store the input
-  which is converted once with .tolist() inside the timed functions. Looping over NumPy elements
-  one by one is about 4x slower than over lists.
-* Base case: i-j-k triple loop. Y is transposed once per leaf so the k loop walks a
-  row of X and a column of Y side by side.
-* CW_LEAF_SIZE = 64 was chosen by measurement. Below that, the 15 additions of a level costs
-  more than the one multiplication this algorithm saves.
-
-Bottleneck of the sequential version
-------------------------------------
-The i-j-k lef products take around 89.6% of the time at M = 512 and around 88%
-at M = 1024. The S/T/U block additions take about 6-7%. The 7 products of one level
-do not depend on each other, they only need the S/T sums before them and only the U/Z
-additions after them use their result. So the products are the work to spread over
-processes while additions of the top levels stay in the main process.
-
-Multiprocessing version
------------------------
-Pool workers cannot create their own pools, so the recursion tree is flattened:
-1. The main process expands the top d = CW_MP_DEPTH levels (only the cheap S/T additions)
-   giving 7^d independent leave products. d = 2 gives 49 tasks. d = 1 (7 tasks) leavees workers
-   idle while d = 3 (343 tasks) costs more serial additions and data transfer per extra level
-   than it gains in balance.
-2. Tail balancing: 7^d equal tasks are rarely divide evenly over p workers (49 tasks on p = 6)
-   takes 9 rounds, the last one with a single busy worker). The last 7^d mod p leaves are therefore
-   split one level further into 7 smaller tasks each which spread evenly over the workers in the
-   final round. The are submitted last so the larger tasks start first.
-3. Every task is submitted with apply_async (one task at a time, so faster workers take more).
-   Each worker runs the sequential recursion on its operands.
-4. The main process collects the results in submission order and combines every group of 7
-   as soon as it is complete, overlapping its U/Z additions with the tasks still running.
-   The remaining levels are combine at the end.
-The depth is reduced for small matrices so that no leaf is smaller than CW_LEAF_SIZE.
 """
 import config
 

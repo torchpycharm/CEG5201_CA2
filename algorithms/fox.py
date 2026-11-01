@@ -4,59 +4,6 @@ Owner: Divyalakshmi Balasubramaniam (Member ID 4)
 
 Reference: G. C. Fox, S. W. Otto, and A. J. G. Hey, "Matrix algorithms on a hypercube
 I: Matrix multiplication," Parallel Comput., vol. 4, no. 1, pp. 17-31, 1987.
-
-Appendix A (q = 3 example) is correct. In stage s it broadcasts one block of Y down
-each block column and rolls X left by one block per stage - the transpose of the
-textbook form (broadcast a block of X along each block row, roll Y up); both give
-X x Y. All sizes are powers of two, so a power-of-two q divides every matrix evenly.
-
-
-How the algorithm works
------------------------
-Fox's algorithm is a block matrix multiplication algorithm that divides the input matrices 
-into smaller submatrices (blocks) and performs multiplication in stages.
-
-A and B are split into 4 x 4 grids of blocks (q = config.FOX_GRID = 4), resulting in 16 blocks 
-and 4 stages per matrix. For every stage, A blocks are shifted left and diagonal B blocks are 
-broadcasted down each block column. Each block of C is computed by multiplying the corresponding A 
-and B blocks and accumulating the results over the 4 stages, which is the 'broadcast-multiply-roll' 
-cycle described in (Fox et al., 1987).
-
-
-Implementation notes
---------------------
-The matrices are split and stored as lists of blocks, where each block is a list of lists (2D array), where
-each block is indexed by one of the 16 positions in the 4 x 4 grid. The blockes are stored in row-major order, 
-so the block at (row, col) is stored at index row * 4 + col. 
-
-|           | Column 0   | Column 1   | Column 2   | Column 3  |
-|-----------|------------|------------|------------|-----------|
-|   Row 0   | (0,0) → 0  | (0,1) → 1  | (0,2) → 2  | (0,3) → 3 |
-|   Row 1   | (1,0) → 4  | (1,1) → 5  | (1,2) → 6  | (1,3) → 7 |
-|   Row 2   | (2,0) → 8  | (2,1) → 9  | (2,2) → 10 | (2,3) → 11 |
-|   Row 3   | (3,0) → 12 | (3,1) → 13 | (3,2) → 14 | (3,3) → 15 |
-
-For each stage s (0 to 3):  
-    - Determine the diagonal + s block of B to use: block_b = blocks_B[((col_b + s) % 4) * 4 + col_b]
-    - Determine the block of A to use: block_a = blocks_A[row_a * 4 + (col_b + s) % 4]
-    - Multiply the selected blocks and add the result to blocks_C[row_a * 4 + col_b] += block_a * block_b
-
-Bottleneck of the sequential version
-------------------------------------
-Profiling identified block multiplication as the dominant sequential cost, accounting for 
-99.2% of the profiled runtime at size 512 × 512. The multiprocessing implementation targets this cost 
-by assigning each output block’s four stage computations to an independent pool task. This distributes the 
-multiplication workload across processes, while input preparation and final assembly remain sequential.
-
-
-Multiprocessing version
------------------------
-The multiprocessing version creates 16 independent tasks, one for each output block of C. Each task receives the 
-four A blocks from its corresponding block row and the four B blocks from its corresponding block column. A pool of 
-worker processes executes these tasks. Within each task, the worker selects the appropriate A and B blocks for each 
-of the four Fox stages, multiplies them using the multiply function, and accumulates the results into one output block. 
-The task returns the completed block and its position. The main process places the returned blocks into their correct 
-positions and assembles C.
 """
 
 import config

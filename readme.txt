@@ -26,30 +26,12 @@ tables and figures used in the report.
 - About 110 MB of free disk space for the generated matrices.
 
 
-2. ONE-TIME SET-UP
+2. Environment
 ------------------
-Open a terminal in the folder that contains this file, then:
+Note: use python 3.14.7 for running
+    pip install -r requirements.txt
 
-  macOS:
-      python3 -m venv .venv
-      source .venv/bin/activate
-      pip install -r requirements.txt
-
-  Windows, Command Prompt:
-      py -m venv .venv
-      .venv\Scripts\activate.bat
-      pip install -r requirements.txt
-
-  Windows, PowerShell:
-      py -m venv .venv
-      .venv\Scripts\Activate.ps1
-      pip install -r requirements.txt
-
-After activation the prompt starts with "(.venv)". Activate it again in every new
-terminal (the second line of the commands above). "python" below means the Python of
-this activated environment.
-
-
+    
 3. RUNNING  (in this order)
 ---------------------------
 3.1  python show_setup.py
@@ -76,10 +58,22 @@ this activated environment.
      Raw results: results/<algorithm>/raw/seq.json and mp_p<p>.json
 
 3.5  python analyze.py
-     Builds the report tables and figures from the raw results (a few seconds).
+     Builds the report tables and figures from the raw results.
 
-Optional smoke test: add --quick to run_benchmark.py and analyze.py. It uses only G0
-and G1 with pairs up to 256 x 256 and writes to results_quick/ instead of results/.
+Optional smoke test: add --quick to run_benchmark.py and analyze.py. It uses only G0,
+G1 and G2 (all eight sizes) and writes to results_quick/ instead of results/.
+
+One-click alternative to 3.3-3.5 (this is how the report results were produced):
+     python run_all.py
+     Runs, for each algorithm in turn, verify.py and then run_benchmark.py, and finally
+     analyze.py for all of them. Between two algorithms it waits until the CPU is back
+     to its starting speed (a short pure-Python speed probe; settings COOLDOWN_* in
+     config.py), so heat from one algorithm does not slow down the next. On macOS it
+     also keeps the computer awake. It stops if any step fails. Still run 3.2 first.
+     Options:
+         python run_all.py --quick                  # G0-G2 only -> results_quick/
+         python run_all.py --algos cannon fox       # only these algorithms, in this order
+         python run_all.py --results-dir results_windows   # write to another folder
 
 Optional bottleneck analysis ([C-n.1]):
      python profile_seq.py --algo cannon --size 1024
@@ -152,6 +146,7 @@ environment variable has to be set by hand.
   profile_seq.py           cProfile of a sequential implementation (bottleneck)
   run_benchmark.py         [B] and [C] timing runs
   analyze.py               [D] and [E] tables and figures
+  run_all.py               one-click run of verify, benchmark and analysis with CPU cool-down
   make_submission.py       builds the submission zip
   common/data.py           generation, storage and loading of the matrices
   common/bench.py          timing harness and worker-pool creation

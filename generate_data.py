@@ -3,8 +3,7 @@
 Usage:
     python generate_data.py
 """
-import config  # first import: pins BLAS threads before NumPy loads
-
+import config 
 from common import data
 
 

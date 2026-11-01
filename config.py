@@ -15,9 +15,6 @@ for _name in ("OMP_NUM_THREADS", "MKL_NUM_THREADS", "OPENBLAS_NUM_THREADS",
               "VECLIB_MAXIMUM_THREADS", "NUMEXPR_NUM_THREADS"):
     os.environ[_name] = "1"
 
-# ---------------------------------------------------------------------------
-# Team  (TODO: fill in once and commit)
-# ---------------------------------------------------------------------------
 GROUP_ID = 4
 
 MEMBERS = [

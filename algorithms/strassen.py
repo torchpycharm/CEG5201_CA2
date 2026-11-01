@@ -4,60 +4,6 @@ Owner: ZHOU JUNMIN (Member ID 0)
 
 Reference: V. Strassen, "Gaussian elimination is not optimal," Numer. Math., vol. 13,
 no. 4, pp. 354-356, 1969.
-
-How the algorithm works
------------------------
-X and Y are cut into a 2 x 2 grid of blocks. A normal block multiplication needs
-eight block products; Strassen uses seven products and some extra additions:
-
-1. Prepare the blocks: split X into X11, X12, X21, X22 and Y into Y11, Y12, Y21,
-   Y22. _operands forms the sums and differences needed by the seven products
-   M1..M7, following Appendix A of the revised statement.
-2. Multiply: calculate each product using the same method recursively. When its
-   size is <= config.STRASSEN_LEAF_SIZE, use the i-j-k triple loop directly.
-3. Rebuild Z: _combine calculates Z11 = M2 + M3 - M6 - M7, Z12 = M4 + M6,
-   Z21 = M5 + M7 and Z22 = M1 - M3 - M4 - M5, then joins the four blocks.
-
-Each recursive split saves one half-size multiplication but needs 18 block
-additions and subtractions. Both versions use the same seven-product calculation.
-
-Implementation notes
---------------------
-* All arithmetic is our own pure-Python loops: block additions and subtractions
-  visit each entry, and _base_multiply is an i-j-k triple loop over Python ints.
-  NumPy is only used to store the input; no NumPy arithmetic or library product.
-* NumPy inputs are converted with .tolist() inside the timed functions and are not
-  changed. At each leaf, Y is stored by columns for the inner multiplication loop.
-* config.STRASSEN_LEAF_SIZE = 64 controls when recursion stops. The assignment
-  sizes (16 ... 2048) split evenly; odd sizes use the base loop directly.
-* Sequential version: the seven products are calculated one after another, then
-  combined before returning to the previous recursion level.
-
-Bottleneck of the sequential version (python profile_seq.py --algo strassen)
------------------------------------------------------------------------------
-The leaf products (_base_multiply) contain the i-j-k triple loops and are the main
-computation cost. Splitting, block additions, NumPy -> list conversion and joining
-also take time. At one recursion level the seven products do not depend on each
-other: only their input sums are needed first, and their results are combined later.
-These products are the work to spread over processes. Use the profiling command
-above to measure their time share on the team's chosen platform.
-
-Multiprocessing version
------------------------
-* The main process prepares the top recursion levels until there are at least
-  7 * p independent products, or the leaf size is reached. For p = 2..6 this gives
-  7 or 49 tasks, depending on the matrix size. Each task runs the remaining
-  recursion sequentially and returns its product. Tasks go to the supplied pool
-  one at a time with apply_async; workers do not create their own pools. With
-  p = 1, or an input already at the leaf size, there is just one product task.
-* The main process collects each group in M1..M7 order and combines it as soon as
-  its results are ready, while other tasks can still be running. The levels above
-  are then combined to recover the complete matrix. No shared memory is used.
-* Preparing and pickling blocks, transferring them between processes and joining
-  the results add overhead. Task counts can also leave workers idle near the end:
-  49 tasks do not divide evenly over 6 workers. These costs limit the speed-up and
-  can make small matrices slower than the sequential version. The shared framework
-  handles all timing, including the rule for excluding worker-pool startup.
 """
 import config
 
