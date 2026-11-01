@@ -1,0 +1,189 @@
+
+=================================================================
+Fox diagnostic: n=2048, p=1
+=================================================================
+
+Sequential preparation: 0.148039 s
+Parallel execution (starmap): 378.027418 s
+Sequential assembly: 0.528584 s
+Worker compute times overlap; do not add them to starmap time.
+
+Worker task distribution
+-----------------------------------------------------------------
+PID 12572 | Tasks: 16 | Compute: 377.144s | Finish: 378.014s
+    Block (0, 0) | Compute: 24.434228s | Task duration: 24.441271s
+    Block (0, 1) | Compute: 23.854990s | Task duration: 23.861384s
+    Block (0, 2) | Compute: 24.575279s | Task duration: 24.584514s
+    Block (0, 3) | Compute: 24.249124s | Task duration: 24.255365s
+    Block (1, 0) | Compute: 23.520944s | Task duration: 23.527124s
+    Block (1, 1) | Compute: 23.814669s | Task duration: 23.820781s
+    Block (1, 2) | Compute: 23.399486s | Task duration: 23.405672s
+    Block (1, 3) | Compute: 23.277471s | Task duration: 23.283490s
+    Block (2, 0) | Compute: 23.253082s | Task duration: 23.258636s
+    Block (2, 1) | Compute: 23.254719s | Task duration: 23.260537s
+    Block (2, 2) | Compute: 23.217075s | Task duration: 23.222938s
+    Block (2, 3) | Compute: 23.125724s | Task duration: 23.131685s
+    Block (3, 0) | Compute: 23.225146s | Task duration: 23.231291s
+    Block (3, 1) | Compute: 23.276673s | Task duration: 23.282649s
+    Block (3, 2) | Compute: 23.499810s | Task duration: 23.505485s
+    Block (3, 3) | Compute: 23.166007s | Task duration: 23.171592s
+
+=================================================================
+Fox diagnostic: n=2048, p=2
+=================================================================
+
+Sequential preparation: 0.169768 s
+Parallel execution (starmap): 193.201190 s
+Sequential assembly: 0.524580 s
+Worker compute times overlap; do not add them to starmap time.
+
+Worker task distribution
+-----------------------------------------------------------------
+PID 11212 | Tasks: 8 | Compute: 192.719s | Finish: 193.188s
+    Block (0, 1) | Compute: 23.598770s | Task duration: 23.604917s
+    Block (0, 2) | Compute: 23.697526s | Task duration: 23.703250s
+    Block (1, 1) | Compute: 23.889233s | Task duration: 23.895349s
+    Block (1, 3) | Compute: 24.635094s | Task duration: 24.641101s
+    Block (2, 1) | Compute: 24.159346s | Task duration: 24.165245s
+    Block (2, 3) | Compute: 24.640503s | Task duration: 24.646673s
+    Block (3, 1) | Compute: 23.929662s | Task duration: 23.935683s
+    Block (3, 3) | Compute: 24.169119s | Task duration: 24.175255s
+PID 22852 | Tasks: 8 | Compute: 191.998s | Finish: 192.432s
+    Block (0, 0) | Compute: 23.788472s | Task duration: 23.794680s
+    Block (0, 3) | Compute: 23.484208s | Task duration: 23.490206s
+    Block (1, 0) | Compute: 23.818566s | Task duration: 23.824501s
+    Block (1, 2) | Compute: 24.684063s | Task duration: 24.690144s
+    Block (2, 0) | Compute: 24.088057s | Task duration: 24.094143s
+    Block (2, 2) | Compute: 24.224339s | Task duration: 24.230496s
+    Block (3, 0) | Compute: 23.980790s | Task duration: 23.987083s
+    Block (3, 2) | Compute: 23.929127s | Task duration: 23.935208s
+
+=================================================================
+Fox diagnostic: n=2048, p=3
+=================================================================
+
+Sequential preparation: 0.132958 s
+Parallel execution (starmap): 148.699312 s
+Sequential assembly: 0.520355 s
+Worker compute times overlap; do not add them to starmap time.
+
+Worker task distribution
+-----------------------------------------------------------------
+PID 7024 | Tasks: 6 | Compute: 147.548s | Finish: 148.687s
+    Block (0, 1) | Compute: 24.970963s | Task duration: 24.979481s
+    Block (0, 3) | Compute: 24.709083s | Task duration: 24.715046s
+    Block (1, 2) | Compute: 24.944813s | Task duration: 24.950828s
+    Block (2, 1) | Compute: 25.019555s | Task duration: 25.025778s
+    Block (3, 0) | Compute: 24.620570s | Task duration: 24.626541s
+    Block (3, 3) | Compute: 23.283359s | Task duration: 23.289387s
+PID 10300 | Tasks: 5 | Compute: 125.250s | Finish: 126.298s
+    Block (0, 0) | Compute: 26.527576s | Task duration: 26.533762s
+    Block (1, 1) | Compute: 24.622354s | Task duration: 24.628541s
+    Block (1, 3) | Compute: 25.007840s | Task duration: 25.014062s
+    Block (2, 3) | Compute: 24.408302s | Task duration: 24.414506s
+    Block (3, 1) | Compute: 24.683649s | Task duration: 24.689789s
+PID 14072 | Tasks: 5 | Compute: 125.677s | Finish: 126.822s
+    Block (0, 2) | Compute: 26.381478s | Task duration: 26.391091s
+    Block (1, 0) | Compute: 24.796884s | Task duration: 24.802966s
+    Block (2, 0) | Compute: 24.812064s | Task duration: 24.818021s
+    Block (2, 2) | Compute: 24.734994s | Task duration: 24.741148s
+    Block (3, 2) | Compute: 24.951314s | Task duration: 24.957421s
+
+=================================================================
+Fox diagnostic: n=2048, p=4
+=================================================================
+
+Sequential preparation: 0.213783 s
+Parallel execution (starmap): 101.796784 s
+Sequential assembly: 0.518419 s
+Worker compute times overlap; do not add them to starmap time.
+
+Worker task distribution
+-----------------------------------------------------------------
+PID 6720 | Tasks: 4 | Compute: 101.407s | Finish: 101.770s
+    Block (0, 3) | Compute: 24.902590s | Task duration: 24.908614s
+    Block (1, 2) | Compute: 25.523603s | Task duration: 25.529730s
+    Block (2, 3) | Compute: 25.612921s | Task duration: 25.619049s
+    Block (3, 3) | Compute: 25.368279s | Task duration: 25.374524s
+PID 7616 | Tasks: 4 | Compute: 101.176s | Finish: 101.501s
+    Block (0, 1) | Compute: 24.904065s | Task duration: 24.910272s
+    Block (1, 1) | Compute: 25.509391s | Task duration: 25.515529s
+    Block (2, 2) | Compute: 25.380880s | Task duration: 25.387148s
+    Block (3, 1) | Compute: 25.381936s | Task duration: 25.388147s
+PID 15352 | Tasks: 4 | Compute: 101.149s | Finish: 101.501s
+    Block (0, 2) | Compute: 24.865583s | Task duration: 24.871795s
+    Block (1, 0) | Compute: 25.497995s | Task duration: 25.504230s
+    Block (2, 1) | Compute: 25.450519s | Task duration: 25.456354s
+    Block (3, 2) | Compute: 25.334903s | Task duration: 25.341363s
+PID 23276 | Tasks: 4 | Compute: 101.505s | Finish: 101.777s
+    Block (0, 0) | Compute: 25.036868s | Task duration: 25.042994s
+    Block (1, 3) | Compute: 25.333510s | Task duration: 25.339691s
+    Block (2, 0) | Compute: 25.413867s | Task duration: 25.420052s
+    Block (3, 0) | Compute: 25.720791s | Task duration: 25.727023s
+
+=================================================================
+Fox diagnostic: n=2048, p=5
+=================================================================
+
+Sequential preparation: 0.232349 s
+Parallel execution (starmap): 100.848478 s
+Sequential assembly: 0.512996 s
+Worker compute times overlap; do not add them to starmap time.
+
+Worker task distribution
+-----------------------------------------------------------------
+PID 3060 | Tasks: 3 | Compute: 77.872s | Finish: 78.050s
+    Block (0, 0) | Compute: 26.531243s | Task duration: 26.537583s
+    Block (2, 0) | Compute: 25.544881s | Task duration: 25.551447s
+    Block (3, 0) | Compute: 25.796050s | Task duration: 25.802426s
+PID 6832 | Tasks: 3 | Compute: 77.229s | Finish: 77.552s
+    Block (1, 0) | Compute: 26.132773s | Task duration: 26.139112s
+    Block (1, 2) | Compute: 25.447322s | Task duration: 25.453871s
+    Block (2, 3) | Compute: 25.648637s | Task duration: 25.654869s
+PID 10848 | Tasks: 3 | Compute: 78.011s | Finish: 78.258s
+    Block (0, 2) | Compute: 26.712189s | Task duration: 26.718434s
+    Block (2, 1) | Compute: 25.499082s | Task duration: 25.505209s
+    Block (3, 1) | Compute: 25.799243s | Task duration: 25.805655s
+PID 14116 | Tasks: 4 | Compute: 100.572s | Finish: 100.835s
+    Block (0, 1) | Compute: 25.682489s | Task duration: 25.688883s
+    Block (1, 1) | Compute: 25.604837s | Task duration: 25.611068s
+    Block (2, 2) | Compute: 25.899293s | Task duration: 25.905408s
+    Block (3, 3) | Compute: 23.385537s | Task duration: 23.391527s
+PID 16712 | Tasks: 3 | Compute: 77.855s | Finish: 78.141s
+    Block (0, 3) | Compute: 26.344617s | Task duration: 26.350868s
+    Block (1, 3) | Compute: 25.913494s | Task duration: 25.920008s
+    Block (3, 2) | Compute: 25.596878s | Task duration: 25.603007s
+
+=================================================================
+Fox diagnostic: n=2048, p=6
+=================================================================
+
+Sequential preparation: 0.229918 s
+Parallel execution (starmap): 78.194010 s
+Sequential assembly: 0.550291 s
+Worker compute times overlap; do not add them to starmap time.
+
+Worker task distribution
+-----------------------------------------------------------------
+PID 2908 | Tasks: 3 | Compute: 77.893s | Finish: 78.181s
+    Block (0, 3) | Compute: 26.420296s | Task duration: 26.426719s
+    Block (2, 1) | Compute: 26.045002s | Task duration: 26.051563s
+    Block (3, 3) | Compute: 25.427842s | Task duration: 25.433997s
+PID 3328 | Tasks: 3 | Compute: 77.598s | Finish: 77.812s
+    Block (0, 1) | Compute: 26.193619s | Task duration: 26.199782s
+    Block (2, 0) | Compute: 25.988928s | Task duration: 25.995302s
+    Block (3, 2) | Compute: 25.415503s | Task duration: 25.422010s
+PID 6968 | Tasks: 2 | Compute: 52.946s | Finish: 53.072s
+    Block (0, 0) | Compute: 27.115788s | Task duration: 27.122072s
+    Block (2, 3) | Compute: 25.830460s | Task duration: 25.836965s
+PID 10300 | Tasks: 3 | Compute: 77.332s | Finish: 77.694s
+    Block (1, 1) | Compute: 25.877429s | Task duration: 25.883638s
+    Block (1, 3) | Compute: 25.865020s | Task duration: 25.870905s
+    Block (3, 1) | Compute: 25.589124s | Task duration: 25.595605s
+PID 20064 | Tasks: 3 | Compute: 76.560s | Finish: 76.886s
+    Block (1, 0) | Compute: 25.476372s | Task duration: 25.482651s
+    Block (1, 2) | Compute: 25.711966s | Task duration: 25.718486s
+    Block (3, 0) | Compute: 25.371771s | Task duration: 25.378058s
+PID 21920 | Tasks: 2 | Compute: 52.707s | Finish: 52.907s
+    Block (0, 2) | Compute: 26.602899s | Task duration: 26.609126s
+    Block (2, 2) | Compute: 26.103993s | Task duration: 26.110455s
