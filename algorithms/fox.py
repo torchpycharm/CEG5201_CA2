@@ -72,9 +72,9 @@ def multiply_seq(A, B):
     for stage in range(grid):
         for col_b in range(grid):
             row_b = (col_b + stage) % grid
-            index_b = row_b * grid + col_b  # determine the diagonal + s block of B to use
+            index_b = row_b * grid + col_b
             for row_a in range(grid):
-                index_a = row_a * grid + row_b  # determine the shifted A block to use
+                index_a = row_a * grid + row_b
                 index_c = row_a * grid + col_b
                 multiply(blocks_A[index_a], blocks_B[index_b], blocks_C[index_c])
 
@@ -91,7 +91,7 @@ def multiply_mp(A, B, pool, p):
     n = len(A)
     block_size = n // grid
 
-    # split each matrix into a 4-by-4 grid of blocks
+    # split each matrix into a 4-by-4 grid of blocks stored in row-major order (r,c -> r*4 + c)
     blocks_A, blocks_B, blocks_C = split_blocks(A, block_size), split_blocks(B, block_size), [None] * 16
 
     # create a list of tasks for the multiprocessing pool
