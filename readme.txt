@@ -81,6 +81,16 @@ Optional bottleneck analysis ([C-n.1]):
      the largest share of the run time and saves the table to
      results/<algorithm>/profile/seq_<size>.txt.
 
+Optional Fox task diagnostic (used in the Fox bottleneck discussion):
+     python run_fox_diagnostic.py
+     Multiplies the 2048 x 2048 pair of G0 with an instrumented copy of the Fox
+     multiprocessing version (fox_diagnostic/fox_diagnostic.py) for p = 1 .. 6, and
+     prints the preparation, parallel and assembly times and the tasks and finish
+     time of every worker. Run 3.2 first. It took about 17 minutes on the AMD Ryzen 7
+     5800H used for the diagnostic in the report. The output is
+     also written to fox_diagnostic/fox_diagnostic_output.txt; the copy included in
+     this submission is the run quoted in the report, and re-running overwrites it.
+
 
 4. OUTPUT FILES
 ---------------
@@ -156,3 +166,6 @@ environment variable has to be set by hand.
   algorithms/coppersmith_winograd.py   Coppersmith-Winograd (n = 2)
   algorithms/cannon.py                 Cannon (n = 3)
   algorithms/fox.py                    Fox (n = 4)
+  run_fox_diagnostic.py                runs the Fox task diagnostic
+  fox_diagnostic/fox_diagnostic.py     Fox multiprocessing version with per-task timing
+  fox_diagnostic/fox_diagnostic_output.txt   saved output of that diagnostic
